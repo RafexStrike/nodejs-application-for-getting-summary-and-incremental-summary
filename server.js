@@ -1,5 +1,6 @@
 // server.js
 
+import { generateNormalSummary } from "./lib/generateNormalSummary.js";
 import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
@@ -12,10 +13,11 @@ import { MongoClient } from "mongodb";
 // import { processVideoFile } from "./lib/processVideo.js";
 
 const app = express();
+app.use(express.json());
 const uri = process.env.MONGODB_URI;
 console.log(uri);
 const client = new MongoClient(uri);
-console.log(process.env.HF_TOKEN);
+console.log("hf api key", process.env.HF_TOKEN);
 
 // Hard coded CORS starts...
 const corsOptions = {
@@ -31,9 +33,9 @@ app.use(cors(corsOptions));
 
 
 // routes:
-app.post("/api/generateNormalSummary")
+app.post("/api/generateNormalSummary", generateNormalSummary)
 
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log("Server is running in the PORT number:", PORT);
 });
