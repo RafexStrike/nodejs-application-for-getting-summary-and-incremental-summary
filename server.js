@@ -1,6 +1,7 @@
 // server.js
 
 import { generateNormalSummary } from "./lib/generateNormalSummary.js";
+import { generateIncrementalSummary } from "./lib/generateIncrementalSummary.js";
 import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
@@ -34,6 +35,7 @@ app.use(cors(corsOptions));
 
 // routes:
 app.post("/api/generateNormalSummary", generateNormalSummary)
+app.post("/api/generateIncrementalSummary", generateIncrementalSummary)
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
